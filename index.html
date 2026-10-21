@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonova — Toko Audio Online</title>
+<!-- Font geometris "Outfit" khusus wordmark logo & judul banner (fallback otomatis bila offline) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ======================= NAVBAR ======================= -->
+<header class="navbar">
+  <div class="navbar-inner">
+    <a class="logo" href="#beranda" aria-label="Sonova — ke beranda">sonova<span class="logo-dot">.</span></a>
+    <nav class="nav-menu" id="nav-menu">
+      <a href="#beranda">Beranda</a>
+      <a href="#produk">Produk</a>
+      <a href="#tentang">Tentang Kami</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="cart-btn" id="btn-cart" aria-label="Buka keranjang belanja">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge hidden" id="cart-count">0</span>
+      </button>
+      <button class="hamburger" id="btn-menu" aria-label="Buka menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= HERO CAROUSEL ======================= -->
+<section class="hero" id="beranda">
+  <div class="carousel" id="carousel" role="region" aria-roledescription="carousel"
+       aria-label="Promosi produk Sonova">
+
+    <!-- Viewport: memastikan hanya satu slide utuh yang tampil -->
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="carousel-track">
+
+      <!-- Slide 1: Headphone -->
+      <article class="slide" data-index="0" data-target="Headphone" aria-roledescription="slide" aria-label="1 dari 3">
+        <div class="slide-text">
+          <p class="slide-kategori">Headphone</p>
+          <h1>Discover Your Sound</h1>
+          <p class="slide-desc">Rasakan kualitas audio premium dari headphone dengan
+             noise-cancelling terbaik di kelasnya.</p>
+          <button class="btn-hero" data-cta="Headphone">Lihat Katalog Headphone</button>
+        </div>
+        <div class="slide-media">
+          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Sony-WH-1000XM3-kabellose-Bluetooth-Noise-Cancelling-Kopfhoerer.3.jpg/500px-Sony-WH-1000XM3-kabellose-Bluetooth-Noise-Cancelling-Kopfhoerer.3.jpg"
+               alt="Headphone Sony WH-1000XM3" loading="eager">
+        </div>
+      </article>
+
+      <!-- Slide 2: TWS -->
+      <article class="slide" data-index="1" data-target="TWS" aria-roledescription="slide" aria-label="2 dari 3" aria-hidden="true">
+        <div class="slide-text">
+          <p class="slide-kategori">TWS</p>
+          <h1>Your Sound, Your Style</h1>
+          <p class="slide-desc">Earbuds true wireless ringkas dengan koneksi stabil,
+             siap menemani aktivitas seharian.</p>
+          <button class="btn-hero" data-cta="TWS">Lihat Katalog TWS</button>
+        </div>
+        <div class="slide-media">
+          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/AirPods_Pro_%282nd_generation%29.jpg/500px-AirPods_Pro_%282nd_generation%29.jpg"
+               alt="TWS Apple AirPods Pro 2" loading="lazy">
+        </div>
+      </article>
+
+      <!-- Slide 3: Headset -->
+      <article class="slide" data-index="2" data-target="Headset" aria-roledescription="slide" aria-label="3 dari 3" aria-hidden="true">
+        <div class="slide-text">
+          <p class="slide-kategori">Headset</p>
+          <h1>Hear Every Detail</h1>
+          <p class="slide-desc">Headset gaming dan kerja dengan mikrofon jernih,
+             dirancang untuk kenyamanan berjam-jam.</p>
+          <button class="btn-hero" data-cta="Headset">Lihat Katalog Headset</button>
+        </div>
+        <div class="slide-media">
+          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/ELECOM---HS-ARMA100WH_01.jpg/500px-ELECOM---HS-ARMA100WH_01.jpg"
+               alt="Headset Gaming ELECOM HS-ARMA100WH" loading="lazy">
+        </div>
+      </article>
+
+    </div>
+    </div><!-- /.carousel-viewport -->
+
+    <!-- Navigasi kiri/kanan -->
+    <button class="carousel-btn prev" id="carousel-prev" aria-label="Slide sebelumnya">&#10094;</button>
+    <button class="carousel-btn next" id="carousel-next" aria-label="Slide berikutnya">&#10095;</button>
+
+    <!-- Indikator titik -->
+    <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Pilih slide">
+      <button class="dot active" role="tab" aria-selected="true" aria-label="Slide 1: Discover Your Sound" data-go="0"></button>
+      <button class="dot" role="tab" aria-selected="false" aria-label="Slide 2: Your Sound, Your Style" data-go="1"></button>
+      <button class="dot" role="tab" aria-selected="false" aria-label="Slide 3: Hear Every Detail" data-go="2"></button>
+    </div>
+  </div>
+</section>
+
+<main>
+  <!-- ======================= KATALOG ======================= -->
+  <section class="panel" id="produk">
+    <div class="section-head">
+      <h2>Katalog Produk</h2>
+      <span id="count-badge" class="count-badge">0 produk</span>
+    </div>
+
+    <!-- Kontrol pencarian & sorting -->
+    <div class="controls-card">
+      <div class="control-row">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input id="in-search" placeholder="Cari nama atau kategori produk...">
+        </div>
+        <select id="in-by" title="Bidang pencarian">
+          <option value="name">Nama</option>
+          <option value="category">Kategori</option>
+        </select>
+        <button id="btn-search" class="btn primary">Cari</button>
+        <button id="btn-reset" class="btn ghost">Tampilkan Semua</button>
+      </div>
+      <div class="control-row">
+        <span class="sort-label">Urutkan harga:</span>
+        <button id="btn-sort-asc" class="btn sort">↑ Termurah</button>
+        <button id="btn-sort-desc" class="btn sort">↓ Termahal</button>
+      </div>
+    </div>
+
+    <div id="product-grid" class="product-grid"></div>
+  </section>
+
+  <!-- ======================= TAMBAH PRODUK ======================= -->
+  <section class="panel" id="tambah">
+    <div class="section-head">
+      <h2>Tambah Produk Baru</h2>
+    </div>
+    <form id="form-tambah" autocomplete="off">
+      <label>Nama
+        <input id="in-name" required maxlength="60" placeholder="cth: Headphone Sony WH-1000XM3">
+      </label>
+      <label>Kategori
+        <input id="in-category" required maxlength="30" list="kategori-list" placeholder="cth: Headphone">
+        <datalist id="kategori-list">
+          <option value="Headphone"></option>
+          <option value="Headset"></option>
+          <option value="TWS"></option>
+          <option value="Earphone"></option>
+        </datalist>
+      </label>
+      <label>Harga (Rp)
+        <input id="in-price" type="number" min="0" step="1000" required placeholder="cth: 500000">
+      </label>
+      <label>Stok
+        <input id="in-stock" type="number" min="0" required placeholder="cth: 10">
+      </label>
+      <button type="submit" class="btn primary">Simpan Produk</button>
+    </form>
+  </section>
+
+  <!-- ======================= LOG PROSES ======================= -->
+  <section class="panel log-panel" id="log">
+    <div class="section-head">
+      <h2>Log Proses Algoritma</h2>
+      <span id="log-op" class="op-badge">—</span>
+    </div>
+    <div id="log-summary" class="log-summary"></div>
+    <pre id="log-lines" class="log-lines"><code>Belum ada operasi. Klik tombol sorting atau searching untuk melihat langkah-langkah algoritma sorting dan searching.</code></pre>
+  </section>
+
+  <!-- ======================= TENTANG KAMI ======================= -->
+  <section class="panel about" id="tentang">
+    <div class="section-head">
+      <h2>Tentang Kami</h2>
+    </div>
+    <p>
+      <b>Sonova</b> adalah toko khusus perangkat audio personal: headphone,
+      headset, TWS (true wireless stereo), dan earphone. Kami menghadirkan
+      produk dari merek-merek audio ternama dengan informasi harga dan stok
+      yang akurat.
+    </p>
+    <p class="muted">
+      Foto produk pada katalog bersumber dari Wikimedia Commons (lisensi bebas)
+      dan dapat berbeda dari foto resmi produsen.
+    </p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Sonova — toko khusus perangkat audio personal: headphone, headset, TWS, dan earphone.</p>
+  <p class="muted">© 2026 Sonova. Seluruh hak cipta dilindungi.</p>
+</footer>
+
+<!-- ======================= KERANJANG (MODAL) ======================= -->
+<div class="cart-overlay" id="cart-overlay" hidden>
+  <div class="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="cart-head">
+      <h2 id="cart-title">Keranjang Belanja</h2>
+      <button class="cart-close" id="cart-close" aria-label="Tutup keranjang">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-foot">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cart-total-value">Rp0</strong>
+      </div>
+      <p class="cart-note">Keranjang menyimpan pilihan belanja Anda di peramban (localStorage).
+         Halaman ini hanya katalog — tidak ada proses pembayaran.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Notifikasi singkat (sukses / peringatan stok) -->
+<div class="toast-box" id="toast-box" aria-live="polite"></div>
+
+<!-- app.js terakhir agar seluruh elemen DOM (termasuk modal keranjang) sudah ada -->
+<script src="app.js"></script>
+
+</body>
+</html>

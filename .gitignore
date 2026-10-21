@@ -1,0 +1,5 @@
+# Jangan upload hasil kompilasi ke GitHub
+server.exe
+*.o
+*.obj
+.vscode/
