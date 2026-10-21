@@ -21,23 +21,6 @@ headset, TWS, earphone). Implementasi
 └──────────────────────────────┘                                      └──────────────────────────────────────┘
 ```
 
-**Mengapa ini arsitektur paling sederhana?**
-
-- Server HTTP ditulis **langsung di C++ dengan Winsock** — Winsock sudah
-  **built-in di Windows**, jadi **tidak perlu menginstal** Apache, Nginx,
-  Node.js, pustaka JSON, atau toolchain WebAssembly.
-- Koneksi C++ ↔ website **benar-benar nyata**: browser memakai `fetch()`
-  ke `http://localhost:8080`; **seluruh data hanya ada di server C++**
-  (array of struct) dan **seluruh algoritma dieksekusi di C++**.
-  JavaScript hanya menampilkan hasil — JS memakai *referensi*, **bukan**
-  pointer eksplisit seperti C++.
-- Alternatif yang **ditolak** karena tidak sederhana:
-  *WebAssembly (Emscripten)* — butuh instalasi toolchain besar;
-  *Node.js + addon C++* — butuh Node.js dan node-gyp;
-  *CGI di Apache* — butuh web server terpisah.
-
----
-
 ## 2. Struktur file
 
 | File | Isi |
@@ -129,65 +112,3 @@ Uji otomatis (server harus berjalan):
 ```powershell
 python test_api.py
 ```
-
-Harus mencetak `SEMUA UJI LULUS ✔` (menguji katalog, tambah produk,
-sort asc/desc + verifikasi urutan, search nama & kategori, halaman HTML).
-
-> Proyek ini sudah diuji dengan g++ 4.9.2 (Dev-Cpp, mode C++11) dan
-> g++ 16.2.0 (WinLibs, mode C++17) — keduanya mengompilasi `server.cpp`
-> tanpa error/warning.
-
----
-
-## 5. Upload ke GitHub
-
-```powershell
-git init
-git add .
-git commit -m "UTS Struktur Data: Sonova E-Commerce (C++ Array Pointer Struct + Sorting Searching)"
-git branch -M main
-git remote add origin https://github.com/<username>/sonova-uts.git
-git push -u origin main
-```
-(`.gitignore` sudah mengecualikan `server.exe`.)
-
----
-
-## 6. Panduan demo video (3–5 menit)
-
-Rekam layar dengan **Xbox Game Bar** (`Win + G`) atau **OBS Studio**.
-Naskah per menit:
-
-| Waktu | Adegan | Narasi singkat |
-|---|---|---|
-| 0:00–0:40 | Tampilkan `server.cpp` (struct Product, array, fungsi pointer) | "Inti program C++: struct Product, array products[100], semua manipulasi pakai pointer." |
-| 0:40–1:20 | Kompilasi via `.\build.bat`, jalankan `.\server.exe`, buka localhost:8080 | "Server HTTP ditulis di C++ pakai Winsock — tanpa instalasi tambahan. Katalog hanya 4 kategori perangkat audio personal." |
-| 1:20–2:10 | Klik **Urutkan Harga ↑**, tunjuk kartu berubah & **log tiap pass & TUKAR**; ulangi ↓ | "Bubble Sort ascending/descending, log menampilkan setiap perbandingan dan swap." |
-| 2:10–3:00 | Cari **'sony'** berdasar nama → 1 hasil (Headphone Sony); cari **'Headphone'** berdasar kategori | "Linear Search: tiap elemen diperiksa satu per satu, log menampilkan cocok/tidak." |
-| 3:00–3:40 | Tambah produk baru lewat form (mis. "Headphone Sennheiser HD 599", kategori Headphone), muncul di katalog & log TAMBAH; coba masukkan kategori "Speaker" → ditolak | "Produk baru disimpan ke slot kosong array lewat pointer; kategori di luar whitelist ditolak." |
-| 3:40–4:20 | Klik **Tambah ke Keranjang** pada 2 produk (badge navbar naik), buka keranjang, ubah jumlah, hapus; muat ulang halaman → isi keranjang tetap ada | "Keranjang disimpan di localStorage, jadi tetap ada setelah refresh. Nama, harga, dan stok tetap diambil dari katalog, bukan disimpan ganda." |
-| 4:20–5:00 | Jalankan `python test_api.py` → SEMUA UJI LULUS | "Uji otomatis membuktikan urutan sorting & hasil searching benar." |
-| 5:00–5:30 | Tampilkan repo GitHub | "Source code lengkap di GitHub." |
-
-Tips: perbesar font terminal & browser, sebutkan angka pada log
-(jumlah perbandingan/swap) agar terlihat jelas proses algoritmanya.
-
----
-
-## 7. Troubleshooting
-
-- **"Gagal bind ke port 8080"** → port dipakai proses lain; tutup tab/instance
-  server.exe sebelumnya (Task Manager) atau ganti port di `server.cpp` (`htons(8080)`).
-- **Halaman kosong / "index.html tidak ditemukan"** → jalankan `server.exe`
-  dari folder proyek (tempat `index.html` berada).
-- **Windows Defender memblokir `server.exe`** (false positive
-  `Behavior:Win32/DefenseEvasion.A!ml`, umum pada program Winsock
-  baru dikompilasi): klik **"Run anyway"** pada notifikasi, atau
-  tambah folder proyek ke exclusion:
-  *Windows Security → Virus & threat protection → Manage settings →
-  Exclusions → Add → folder proyek*.
-  Alternatif: kompilasi dengan **Dev-Cpp** (MinGW TDM, bebas
-  false positive di banyak mesin):
-  `& "C:\Program Files (x86)\Dev-Cpp\MinGW64\bin\g++.exe" -std=c++11 -O0 server.cpp -o server.exe -lws2_32`
-- **Karakter aneh di log** → log dirancang memakai ASCII; jika tetap aneh,
-  jalankan `chcp 65001` sebelum `.\server.exe`.
