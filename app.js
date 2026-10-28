@@ -145,7 +145,15 @@ function renderProducts(products) {
 }
 
 /* -------------------------- Render log langkah dari C++ -------------------------- */
+/* Revisi tampilan: panel log proses TIDAK ditampilkan lagi di halaman (tampilan
+   seperti e-commerce pada umumnya). Elemen #log-op/#log-summary/#log-lines sudah
+   dihapus dari index.html, seh fungsi ini langsung keluar tanpa mengubah apa pun.
+   Log tetap tersedia di 2 tempat lain: (1) terminal server (printLog) dan
+   (2) field "log" pada respons API — dipakai test_api.py & penjelasan video.
+   Pemanggilan renderLog() pada alur search/sort/tambah/reset DIPERTAHANKAN apa
+   adanya supaya logika dan alur kerja fitur tidak berubah sama sekali. */
 function renderLog(operation, data) {
+  if (!el.logOp || !el.logSummary || !el.logLines) return;  // panel log sudah dihapus
   el.logOp.textContent = operation;
   el.logOp.className = "op-badge " + operation.toLowerCase();
   el.logSummary.textContent = data.summary || "";
